@@ -1,0 +1,36 @@
+<!--
+  @description  : 
+  @author       : Kostiantyn Murin
+  @date         : 02-23-2025
+-->
+<template>
+	<!--<div class="slds-is-relative">
+		<c-confirmation-modal title='Generate PDF'
+		message={confirmationMessage}
+		confirm-label='Yes'
+		cancel-label='No'
+		original-message={originalMessage}
+		name="confirmModal"
+		onclick={handleClick}>
+		</c-confirmation-modal>
+		<template if:true={isLoading}>
+			<lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+		</template>
+	</div>-->
+	<lightning-modal-header label="Generate Invoice"></lightning-modal-header>
+	<lightning-modal-body>
+		<lightning-combobox
+			name="templates"
+			label="Template"
+			value={selectedTemplateId}
+			placeholder="Select Template"
+			options={options}
+			onchange={handleTemplateChange} >
+		</lightning-combobox>
+
+		<p>Selected value is: {selectedTemplateId}</p>
+	</lightning-modal-body>
+	<lightning-modal-footer>
+		<lightning-button label="Generate File" onclick={handleClick}></lightning-button>
+	</lightning-modal-footer>
+</template>
