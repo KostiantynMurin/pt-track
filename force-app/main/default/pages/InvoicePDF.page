@@ -1,0 +1,122 @@
+<!--
+  @description  : 
+  @author       : Kostiantyn Murin
+  @date         : 25-02-2025
+-->
+<apex:page contentType="application/pdf" applyBodyTag="false" showHeader="false" sidebar="false" applyHtmlTag="false" standardStylesheets="false"
+ renderAs="pdf" controller="InvoicePDFController">
+
+	<head>
+		<apex:stylesheet value="{!URLFOR($Resource.PTTrackApp, 'styles/InvoicePDF.css')}" />
+	</head>
+
+	<body>
+		<!-- Header -->
+		<div class="header">
+			<div class="header-top-section">&nbsp;</div>
+			<div class="header-bottom-section">
+				<!-- User Info -->
+				<div class="header-bottom-section-left">
+					<div class="invoice-details">
+						<apex:repeat value="{!userInfoList}" var="userInfo">
+							<div class="detail-item">
+								<strong>{!userInfo.label}</strong> {!userInfo.value}
+							</div>
+						</apex:repeat>
+					</div>
+				</div>
+				<!-- Invoice Data -->
+				<div class="header-bottom-section-right">
+					<div class="invoice-details">
+						<div class="detail-item">
+							<span class="item-type-1">INVOICE</span>
+						</div>
+						<div class="detail-item border">
+							<span class="item-type-2">DATE</span>
+						</div>
+						<div class="detail-item">
+							<span>
+								<strong>{!invoiceDate}</strong>
+							</span>
+						</div>
+						<div class="detail-item border">
+							<span class="item-type-2">NO.</span>
+						</div>
+						<div class="detail-item">
+							<span>
+								<strong>{!invoice.Invoice_Number__c}</strong>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Content -->
+		<div class="content">
+			<!-- Customer Info -->
+			<div class="customer-info">
+				<div class="invoice-details">
+					<div class="detail-item border">
+						<span class="item-type-2">INVOICED TO:</span>
+					</div>
+					<apex:repeat value="{!customerInfoList}" var="customerInfo">
+						<div class="detail-item">
+							<strong>{!customerInfo.label}</strong> {!customerInfo.value}
+						</div>
+					</apex:repeat>
+				</div>
+			</div>
+			<!-- Invoice Items Table -->
+			<div class="item-table">
+				<table>
+					<thead>
+						<tr>
+							<apex:repeat value="{!invoiceLineTable.columnHeaderList}" var="columnName">
+								<th>{!columnName}</th>
+							</apex:repeat>
+						</tr>
+					</thead>
+					<tbody>
+						<apex:variable var="count" value="{!0}" />
+						<apex:repeat value="{!invoiceLineTable.lineList}" var="line">
+							<tr>
+								<td>{!line.Description__c}</td>
+								<td>{!line.Unit_Cost__c}</td>
+								<td>N/A</td>
+								<td>{!line.Quantity__c}</td>
+								<td>{!line.Amount__c}</td>
+								<td>{!invoice.Currency__c}</td>
+							</tr>
+							<apex:variable var="count" value="{!count+1}" />
+						</apex:repeat>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th class="total" colspan="5">Total :</th>
+							<td class="total-value">
+								<b>&#36; {!invoice.Total_Amount__c}</b>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<!-- Payment Info -->
+			<div class="payment-info">
+				<div class="invoice-details">
+					<div class="detail-item border">
+						<span class="item-type-2">PAYMENT INSTRUCTIONS:</span>
+					</div>
+					<apex:repeat value="{!paymentInstructionList}" var="paymentInfo">
+						<div class="detail-item">
+							<strong>{!paymentInfo.label}</strong> {!paymentInfo.value}
+						</div>
+					</apex:repeat>
+				</div>
+			</div>
+		</div>
+		<!-- Footer -->
+		<div class="footer">
+			&nbsp;
+		</div>
+	</body>
+</apex:page>
