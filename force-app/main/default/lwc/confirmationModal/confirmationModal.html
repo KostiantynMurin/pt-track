@@ -1,0 +1,27 @@
+<!--
+  @description  : 
+  @author       : Kostiantyn Murin
+  @date         : 02-21-2025
+-->
+<template>
+	<lightning-quick-action-panel header={title}>
+		{message}
+		<div slot="footer">
+			<lightning-button 
+				variant="neutral" 
+				name="cancel"
+				label={cancelLabel}
+				title={cancelLabel}
+				onclick={handleClick}>
+			</lightning-button>
+			<lightning-button
+				class="slds-m-left_x-small"
+				variant="brand"
+				name="confirm"
+				label={confirmLabel}
+				title={confirmLabel}
+				onclick={handleClick}>
+			</lightning-button>
+		</div>
+	  </lightning-quick-action-panel>
+</template>
